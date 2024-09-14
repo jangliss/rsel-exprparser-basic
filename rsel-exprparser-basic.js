@@ -350,6 +350,30 @@ var RSelExprParser = {
                 document.getElementById('btnRSAddUnpaved').click();
             }
         },
+        junction: {
+            op: function(checked) {
+                document.getElementById('cbRSInbj').checked = checked;
+            },
+            add: function() {
+                document.getElementById('btnRSAddInbj').click();
+            }
+        },
+        carpool: {
+            op: function(checked) {
+                document.getElementById('cbRSHOV').checked = checked;
+            },
+            add: function() {
+                document.getElementById('btnRSAddHOV').click();
+            }
+        },
+        headlight: {
+            op: function(checked) {
+                document.getElementById('cbRSHeadlights').checked = checked;
+            },
+            add: function() {
+                document.getElementById('btnRSAddHeadlights').click();
+            }
+        },
         new: {
             op: function(checked) {
                 document.getElementById('cbRSIsNew').checked = checked;
@@ -473,7 +497,7 @@ var RSelExprParser = {
 
                 // Identify elements that contain selection condition names
                 if (
-                /^country|^state|^city|^street|^(?:un|street[\s-]?)?name|^road|^round|^toll|^speed|^dir|^elevation|^tun|^unpaved|^manlock|^traflock|^speed|^new|^changed|screen$|^restrict|^clos|^createdby|^last|^updatedby|^length|^id|^editable/i
+                /^country|^state|^city|^street|^(?:un|street[\s-]?)?name|^road|^round|^toll|^speed|^dir|^elevation|^tun|^unpaved|^junction|^carpool|^headlight|^manlock|^traflock|^speed|^new|^changed|screen$|^restrict|^clos|^createdby|^last|^updatedby|^length|^id|^editable/i
                 .test(exprFragment)) {
                     condMatches.push(exprFragment.toLowerCase());
                     // lists specific selection conditions
@@ -619,7 +643,7 @@ var RSelExprParser = {
 
             // BINARY CONDITIONS:
         case exprPhrase.length === 0 || //suggests binary
-        /^(screen|roundabout|toll|tun|unpaved|new|changed|restrict|editable)/.test(exprBuild.cond) || //binary selection conditions
+        /^(screen|roundabout|toll|tun|unpaved|junction|carpool|new|changed|restrict|editable)/.test(exprBuild.cond) || //binary selection conditions
         (/^name.*|^closure/i.test(exprBuild.cond) && exprPhrase.length <= 1):
             //selection conditions that have both binary and multiple options
 
@@ -667,6 +691,9 @@ var RSelExprParser = {
             case 'toll':
             case 'tunnel':
             case 'unpaved':
+            case 'junction':
+            case 'carpool':
+            case 'headlight':
             case 'new':
             case 'changed':
             case 'restriction':
